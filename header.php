@@ -8,27 +8,37 @@
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
 	<?php
-		wp_head();
+	wp_head();
 	?>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-210562479-1"></script>
+	<script>
+		window.dataLayer = window.dataLayer || [];
+		function gtag(){dataLayer.push(arguments);}
+		gtag('js', new Date());
+
+		gtag('config', 'UA-210562479-1');
+	</script>
 </head>
 
 <body>
 <header class="navbar">
 	<div class="container">
 		<div class="navbar-logo">
-			<a href="/wordpress" class="navbar-brand logo_header">HT&amp;E - Here There and Everywhere</a>
+			<a href="/" class="navbar-brand logo_header">HT&amp;E - Here There and Everywhere</a>
 		</div>
 		<div class="navbar-middle">
 			<nav class="navbar-container" >
 				<?php
-					wp_nav_menu(
-						array(
-							'menu' => 'primary',
-							'container'=> '',
-							'theme_location' => 'primary',
-							'items_wrap' => '<ul id="ulMenu" class="navbar-nav">%3$s</ul>'
-						)
-					);
+				wp_nav_menu(
+					array(
+						'menu' => 'primary',
+						'container'=> '',
+						'theme_location' => 'primary',
+						'items_wrap' => '<ul id="ulMenu" class="navbar-nav">%3$s</ul>'
+					)
+				);
 				?>
 			</nav>
 			<div class="responsive-searchbar">
@@ -62,4 +72,5 @@
 		</div>
 	</div>
 </header>
+
 

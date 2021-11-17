@@ -3,7 +3,7 @@ Theme Name: HT&E
 Theme URI: https://www.htande.com.au/
 Author: Pranab Raj Amatya, Chaplin Wang
 Author URI: https://www.arn.com.au/
-Version: 1.0
+Version: 1.2
 License: N/A
 License URI: N/A
 Text Domain: htande
@@ -206,7 +206,7 @@ header.navbar .container .navbar-nav {
     /*input#s {*/
     /*    width: 100%;*/
     /*    padding: 7px;*/
-/*    }*/
+    /*    }*/
 }
 
 header.navbar .container .navbar-right .navbar-nav-right {
@@ -263,7 +263,7 @@ header.navbar .container .navbar-right .navbar-nav-right>li {
     list-style: none;
 }
 
- header.navbar .container .navbar-right .navbar-nav-right>li a {
+header.navbar .container .navbar-right .navbar-nav-right>li a {
     color: #fff;
     text-decoration: none;
 }
@@ -373,7 +373,7 @@ ul.navbar-nav-right {
     }
 }
 
- #rightcolumn .pressreleases {
+#rightcolumn .pressreleases {
     margin-bottom: 80px;
 }
 
@@ -506,10 +506,7 @@ footer {
 }
 
 footer .brandlogos {
-    background: url(assets/images/footer-brands-v2.png) center no-repeat;
-    padding-bottom: 118px;
-    height: 127px;
-    background-size: contain;
+    padding-bottom: 10px;
 }
 
 @media (max-width: 767px) {
@@ -541,6 +538,30 @@ footer a:hover {
     text-decoration: none;
 }
 
+footer a img {
+    width: 100px;
+    height: auto;
+}
+
+footer a #logo\[0\] {
+    width: 180px;
+    margin-bottom: -6px;
+}
+
+footer a #logo\[1\] {
+    width: 70px;
+}
+
+
+footer a #logo\[2\] {
+    width: 90px;
+    margin-bottom: -10px;
+}
+
+footer a #logo\[3\] {
+    width: 150px;
+}
+
 footer .copyright {
     padding-top: 15px;
     color: #797979;
@@ -554,9 +575,9 @@ footer .copyright {
 }
 
 /* Contact Page */
- .contact-container {
-     padding-top: 30px;
- }
+.contact-container {
+    padding-top: 30px;
+}
 
 .contact-container .contacts {
     margin-right: 0;
@@ -582,10 +603,6 @@ footer .copyright {
 
 
 /* Legal pages */
-
-#maincontent {
-    padding-top: 35px;
-}
 
 #maincontent .pageTitle {
     font-size: 32px;
@@ -615,6 +632,10 @@ h5 {
 }
 
 /* Press Release Page */
+
+.press-page {
+    padding-top: 30px;
+}
 
 .press-page .press-title h2 {
     font-size: 32px;
@@ -820,7 +841,7 @@ h2.title {
     font-size: 32px;
 }
 @media (min-width: 984px) {
-     h2.title {
+    h2.title {
         font-size: 48px;
     }
 }
@@ -851,7 +872,7 @@ h2.title {
     width: 33%;
     height: auto;
 }
-@media (min-width: 375px) and (max-width: 320px){
+@media (min-width: 375px) and (max-width: 501px){
     .slick-slide img {
         width: 47%;
     }
@@ -862,8 +883,11 @@ h2.title {
         width: 29%;
     }
 }
-
-
+@media (min-width: 320px) and (max-width: 375px) {
+    .slick-slide img {
+        width: 33%;
+    }
+}
 
 @media (min-width: 768px){
     .slick-slide img {
@@ -903,6 +927,3 @@ div#slides{
     from {opacity: .4}
     to {opacity: 1}
 }
-
-
-

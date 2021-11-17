@@ -253,5 +253,155 @@ function customFormatGallery($string,$attr){
 }
 ?>
 
+<?php
+// create custom plugin settings menu
+add_action('admin_menu', 'footer_create_menu');
+
+function footer_create_menu() {
+
+	//create new top-level menu
+	add_options_page('Footer Settings', 'Footer Settings', 'administrator', 'footer_settings', 'footer_setting_page' , 6 );
+
+	//call register settings function
+	add_action( 'admin_init', 'register_footer_settings' );
+}
+
+
+function register_footer_settings() {
+	//register our settings
+	register_setting( 'footer_settings_group', 'logo_image' );
+	register_setting( 'footer_settings_group', 'brand_url' );
+}
+
+add_action( 'admin_enqueue_scripts', 'upload_media_js' );
+
+function upload_media_js() {
+
+	if ( ! did_action( 'wp_enqueue_media' ) ) {
+		wp_enqueue_media();
+	}
+}
+
+function footer_setting_page() {
+	?>
+	<div class="wrap">
+		<h1>Footer Settings</h1>
+		<form  class="input_fields_wrap" method="post" action="options.php">
+			<a class="add_field_button button-secondary">Add Logo</a>
+			<?php submit_button(); ?>
+			<?php settings_fields( 'footer_settings_group' ); ?>
+			<?php do_settings_sections( 'footer_settings_group' ); ?>
+			<?php $logo = get_option('logo_image') ?>
+			<?php $brand = get_option('brand_url')  ?>
+
+			<?php $x= count($logo) ?>
+			<?php for ($i=0; $i< $x; $i++) { ?>
+				<div class="form-table" id="form[<?php echo $i ?>]" style="display: flex">
+					<div class="media" style="display: block; width: 50%">
+						<?php echo image_uploader($logo, $i)?>
+					</div>
+					<div class="brandUrl" style="display: block; width: 50%">
+						<h2 scope="row">Brand Url</h2>
+						<input type="text" name="brand_url[<?php echo $i ?>]" value="<?php echo esc_url($brand[$i]); ?>" />
+					</div>
+					<div class="remove-button"><a href="#" class="remove_field">Remove</a></div>
+				</div>
+			<?php } ?>
+		</form>
+
+
+		<script>
+			jQuery(document).ready(function($){
+				let mediaUploader;
+
+				$('.upload_image_button').click(function(e) {
+					e.preventDefault();
+					let btnClicked = $( this );
+					window.selectedMediaField = btnClicked;
+					if (mediaUploader) {
+						mediaUploader.open();
+						return;
+					}
+					mediaUploader = wp.media.frames.file_frame = wp.media({
+						title: 'Choose Image',
+						button: {
+							text: 'Choose Image'
+						}, multiple: false });
+					mediaUploader.on('select', function() {
+						let attachment = mediaUploader.state().get('selection').first().toJSON();
+						console.log(window.selectedMediaField)
+						$( window.selectedMediaField ).siblings('.logo_image').val(attachment.url);
+					});
+					mediaUploader.open();
+				});
+
+				//Remove Logo
+				$('.remove_image_button').click(function(e) {
+					e.preventDefault();
+					let btnClicked = $( this );
+					$( btnClicked ).parent().children('.logo_image').val('');
+				});
+
+
+				let max_fields      = 7; //maximum input boxes allowed
+				let wrapper         = $(".input_fields_wrap"); //Fields wrapper
+				let add_button      = $(".add_field_button"); //Add button ID
+				let x = <?php echo $x ?>;
+				<?php if($x >= count($logo) ) {
+				$i = $x ;
+				?>
+				$(add_button).click(function(e){ //on add input button click
+					e.preventDefault();
+					if(x < max_fields){ //max input box allowed
+						$(wrapper).append('' +
+							'<div class="form-table" id="form[replace]" style="display: flex">' +
+							'<div class="media" style="display: block; width: 50%">' +
+							'<h2 scope="row">Logo</h2>' +
+							'<input id="logo_image[replace]" class="logo_image" type="text" name="logo_image[replace]" value="<?php echo esc_url($logo[$i]); ?>" />' +
+							'<input id="upload_image_button[replace]" type="button" class="button-primary upload_image_button" value="Insert Logo" />' +
+							'<input id="remove_image_button[replace]" type="button" class="button-primary remove_image_button" value="Remove" />' +
+							'</div>' +
+							'<div class="brandUrl" style="display: block; width: 50%">' +
+							'<h2 scope="row">Brand Url</h2>' +
+							'<input type="text" name="brand_url[replace]" value="<?php echo esc_url($brand[$i]); ?>" />' +
+							'</div>' + '<div class="remove-button"><a href="#" class="remove_field">Remove</a></div>' +
+							'</div>' +  ''); //add input box
+						$("#form\\[replace\\]").attr("id", "form[" + x + "]");
+						$("#logo_image\\[replace\\]").attr("id", "logo_image[" + x + "]");
+						$("input[name*='logo_image\\[replace\\]']").attr("name", "logo_image[" + x + "]");
+						$("#upload_image_button\\[replace\\]").attr("id", "form[" + x + "]");
+						$("#remove_image_button\\[replace\\]").attr("id", "remove_image_button[" + x + "]");
+						$("input[name*='brand_url\\[replace\\]']").attr("name", "brand_url[" + x + "]");
+						x++;
+					}
+					<?php } ?>
+				});
+				$(wrapper).on("click",".remove_field", function(e){ //user click on remove text
+					e.preventDefault();
+					$(this).closest('.form-table').remove(); x--;
+				});
+
+			});
+		</script>
+	</div>
+<?php  } ?>
+
+<?php
+
+function image_uploader( $logo , $i) {
+	$img = $logo;
+	$index = $i ;
+	$logoID = $i + 1;
+	return '<h2 scope="row">Logo '. $logoID .'</h2>
+			<img src="'.$img[$index].'" alt=""  width="50px">
+			<input id="logo_image['. $index .']" class="logo_image" type="text" name="logo_image[' . $index . ']" value="'.$img[$index].'" />
+			<input id="upload_image_button['. $index .']" type="button" class="button-primary upload_image_button" value="Insert Logo" />
+			<input id="remove_image_button['. $index .']" type="button" class="button-primary remove_image_button" value="Remove" />';
+}
+
+?>
+
+
+
 
 
