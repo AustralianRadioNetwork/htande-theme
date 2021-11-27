@@ -31,6 +31,15 @@ function new_sidebar() {
 		'after_title'   => '</h2>',
 	) );
 
+	register_sidebar( array(
+		'name'          => 'Homepage content Sidebar',
+		'id'            => 'sidebar-homepage',
+		'before_widget' => '<div id="leftcolumn" class="content">',
+		'after_widget'  => '</div>',
+		'before_title'  => '<h2 class="chw-title">',
+		'after_title'   => '</h2>',
+	) );
+
 }
 add_action( 'widgets_init', 'new_sidebar' );
 
