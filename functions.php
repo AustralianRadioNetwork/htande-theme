@@ -66,7 +66,7 @@ function new_styles() {
 	wp_enqueue_script('menu-js', get_template_directory_uri() ."/assets/js/menu.js", array(), false, true);
 
 	// CSS
-	wp_enqueue_style('htande-style', get_template_directory_uri() . "/style.css", array(), '1.0', 'all');
+	wp_enqueue_style('htande-style', get_template_directory_uri() . "/style.css", array(), '1.3', 'all');
 	wp_enqueue_style('slick-css', get_template_directory_uri() . "/assets/css/slick.css", array(), false, 'all');
 	wp_enqueue_style('slick-theme-css', get_template_directory_uri() . "/assets/css/slick-theme.css", ['slick-css'], false, 'all');
 }
