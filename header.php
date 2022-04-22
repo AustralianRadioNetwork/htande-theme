@@ -7,6 +7,7 @@
 	<title><?php wp_title(); ?></title>
 	<link rel="profile" href="http://gmpg.org/xfn/11" />
 	<link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>" />
+    <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7606200/6423432/css/fonts.css" />
 	<?php
 	wp_head();
 	?>
